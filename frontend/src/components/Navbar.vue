@@ -27,7 +27,7 @@
 
 <script>
 import EventBus from './EventBus'
-
+// output for testing if user is logged in
 EventBus.$on('logged-in', test => {
   console.log(test)
 })
@@ -40,6 +40,9 @@ export default {
     }
   },
   methods: {
+    /*
+    *  Removes the user token from the localStorage to log the user out
+    */
     logout () {
       localStorage.removeItem('usertoken')
     }

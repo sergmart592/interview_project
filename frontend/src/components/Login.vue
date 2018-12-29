@@ -34,6 +34,9 @@ export default {
     }
   },
   methods: {
+    /*
+    *  Function to send a request to the server for logging in a user
+    */
     login () {
       axios.post('users/login', {
         email: this.email,
@@ -56,6 +59,9 @@ export default {
         console.log(err)
       })
     },
+    /*
+    *  Function to communicate with other vue components that a user is logged in
+    */
     emitMethod () {
       EventBus.$emit('logged-in', 'loggedin')
     }

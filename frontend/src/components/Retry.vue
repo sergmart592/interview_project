@@ -13,6 +13,9 @@
 import router from '../router'
 
 export default {
+  /*
+  *  Function to redirect user upon loading the retry page for the error message
+  */
   created () {
     setTimeout(() => router.push({name: 'Login'}), 10000)
   }

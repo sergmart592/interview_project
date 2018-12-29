@@ -32,6 +32,7 @@
         </div>
         <!-- ****Favorite Results**** -->
         <div class="jumbotron centered">
+               <center><h3>Favorites</h3></center>
                 <div align="center">
                     <button @click="removeFavsFromUser()" type="button" class="btn btn-danger">Remove Favorites</button>
                     <button @click="addFavsToUser()" type="button" class="btn btn-success">Save Favorites</button>
@@ -86,6 +87,9 @@ export default {
     }
   },
   methods: {
+    /*
+    *  Function to retrive the gif searches from GIPHY using their API
+    */
     searchGIF () {
       var apiKey = 'VyPAXFIWXspP74xOxdch0FecuQF8tuJO'
       var searchPoint = 'https://api.giphy.com/v1/gifs/search?'
@@ -102,6 +106,9 @@ export default {
         })
         .catch(err => console.log(err))
     },
+    /*
+    *  Build the URL to search gifs using the search input
+    */
     buildUrlGifs (json) {
       this.gifs = json.data.map(gif => gif.id).map(gifId => {
         // console.log(`https://media.giphy.com/media/${gifId}/giphy.gif`)
@@ -109,6 +116,9 @@ export default {
       })
       // console.log(this.gifs)
     },
+    /*
+    *  Append gifs to favorite array to later be added to the database
+    */
     appendToArray (gifUrlFav) {
       var i
       var flagf
@@ -130,6 +140,9 @@ export default {
       }
       console.log(this.favs)
     },
+    /*
+    *  Append to the dis favorite array to be remove from the favorites in the database
+    */
     appendToArrayDisFav (gifUrlFav) {
       var i
       var flagf
@@ -151,6 +164,9 @@ export default {
       }
       console.log(this.disfavs)
     },
+    /*
+    *  Remove from the favorite arrays
+    */
     removeFromArray (gifUrlFav) {
       var i
       // adds to the dislike array to later be remove
@@ -168,6 +184,9 @@ export default {
       }
       console.log(this.favs)
     },
+    /*
+    *  Retrieves favorites from the database from the specific user
+    */
     getFavoritesFromDB () {
       const path = 'users/favorites'
       if (this.getfavsflg === 0) {
@@ -184,6 +203,9 @@ export default {
           })
       }
     },
+    /*
+    *  Adds the users favorites to the database
+    */
     addFavsToUser () {
       const path = 'users/favorites'
       axios.post(path, {'email': this.email, 'favorites': this.favs, 'action': 'add'})
@@ -194,6 +216,9 @@ export default {
           console.error(error)
         })
     },
+    /*
+    *  removes users favorites from the database
+    */
     removeFavsFromUser () {
       const path = 'users/favorites'
       axios.post(path, {'email': this.email, 'favorites': this.disfavs, 'action': 'remove'})
@@ -205,6 +230,9 @@ export default {
         })
     }
   },
+  /*
+  *  loads the favorites upon loading the page
+  */
   beforeMount () {
     this.getFavoritesFromDB()
   }

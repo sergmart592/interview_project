@@ -48,6 +48,11 @@ export default {
     }
   },
   methods: {
+    /*
+    *  Function to send the request to register a user
+    *  by using the data typed
+    *  if successful, the page will be redirected to the Login page
+    */
     register () {
       axios.post('users/register', {
         first_name: this.first_name,
